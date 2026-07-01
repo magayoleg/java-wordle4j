@@ -10,7 +10,7 @@ import java.io.PrintWriter;
  */
 public class WordleDictionary {
     private final List<String> words;
-    private PrintWriter printWriter;
+    private final PrintWriter printWriter;
 
     public WordleDictionary(List<String> dictionary, PrintWriter printWriter) {
         List<String> filterWords = filterWords(dictionary);
@@ -43,7 +43,7 @@ public class WordleDictionary {
     public String normalizeWord(String word) {
         try {
             String lowercaseWord = word.toLowerCase();
-            if(lowercaseWord.contains("ё")) {
+            if (lowercaseWord.contains("ё")) {
                 lowercaseWord = lowercaseWord.replace("ё", "е");
             }
 
