@@ -1,6 +1,5 @@
 package ru.yandex.practicum;
 
-import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -41,11 +40,11 @@ public class WordleGame {
         boolean isCorrectAnswer = false;
 
         try {
-            while(!isCorrectAnswer & currentStep <= steps) {
+            while (!isCorrectAnswer & currentStep <= steps) {
                 System.out.println("Введите ответ:");
                 currentAnswer = scanner.nextLine();
 
-                if(currentAnswer.isEmpty()) {
+                if (currentAnswer.isEmpty()) {
                     currentAnswer = hintWord();
                 }
 
@@ -55,13 +54,13 @@ public class WordleGame {
                 System.out.println("Осталось " + (steps - currentStep) + " попыток");
 
                 boolean isSearchedWordInDictionary = dictionary.getWords().contains(normalizeCurrentAnswer);
-                if(isSearchedWordInDictionary) {
+                if (isSearchedWordInDictionary) {
                     allAnswersUser.add(currentAnswer);
                     currentStep++;
                 }
             }
 
-            if(isCorrectAnswer & currentStep <= steps) {
+            if (isCorrectAnswer & currentStep <= steps) {
                 System.out.println("Вы угадали слово: " + correctAnswer);
             } else {
                 System.out.println("Количество попыток закончилось. Загаданное слово: " + correctAnswer);
@@ -73,16 +72,16 @@ public class WordleGame {
 
     private boolean isMatchCheck(String correctAnswer, String currentAnswer) {
         try {
-            if(correctAnswer.equals(currentAnswer)) {
+            if (correctAnswer.equals(currentAnswer)) {
                 return true;
             }
             String clue = "";
             for (int i = 0; i < correctAnswer.length(); i++) {
                 String ch1 = correctAnswer.substring(i, i + 1);
                 String ch2 = currentAnswer.substring(i, i + 1);
-                if(ch1.equals(ch2)) {
+                if (ch1.equals(ch2)) {
                     clue += "+";
-                } else if(correctAnswer.contains(ch2)) {
+                } else if (correctAnswer.contains(ch2)) {
                     clue += "^";
                 } else {
                     clue += "-";
@@ -93,7 +92,7 @@ public class WordleGame {
             System.out.println(clue);
 
             return false;
-        } catch(RuntimeException e) {
+        } catch (RuntimeException e) {
             printWriter.println(e.getMessage());
             return false;
         }
@@ -104,20 +103,20 @@ public class WordleGame {
         String containsCharInCorrectAnswer = "";
 
         try {
-            if(allAnswersUser.isEmpty()) {
+            if (allAnswersUser.isEmpty()) {
                 int dictionaryRandomIndex = (int) (Math.random() * dictionary.getWords().size());
                 return dictionary.getWords().get(dictionaryRandomIndex);
             }
-            for(String answer : allAnswersUser) {
-                for(int i = 0; i < answer.length(); i++) {
+            for (String answer : allAnswersUser) {
+                for (int i = 0; i < answer.length(); i++) {
                     boolean isAnswerEqualsCorrectAnswer = answer.charAt(i) == correctAnswer.charAt(i);
-                    if(isAnswerEqualsCorrectAnswer) {
+                    if (isAnswerEqualsCorrectAnswer) {
                         regex[i] = "[" + answer.charAt(i) + "]";
                     }
 
                     String answerCharString = Character.toString(answer.charAt(i));
 
-                    if(answer.charAt(i) != correctAnswer.charAt(i) && correctAnswer.contains(answerCharString)) {
+                    if (answer.charAt(i) != correctAnswer.charAt(i) && correctAnswer.contains(answerCharString)) {
                         containsCharInCorrectAnswer += answerCharString;
                     }
                 }
@@ -126,16 +125,16 @@ public class WordleGame {
             final Pattern pattern = Pattern.compile(String.join("", regex), Pattern.MULTILINE);
             ArrayList<String> filterDictionary = new ArrayList<>();
 
-            for(String word : dictionary.getWords()) {
+            for (String word : dictionary.getWords()) {
                 if (pattern.matcher(word).matches()) {
                     filterDictionary.add(word);
                 }
             }
 
-            for(char ch : containsCharInCorrectAnswer.toCharArray()) {
+            for (char ch : containsCharInCorrectAnswer.toCharArray()) {
                 ArrayList<String> newFilterDictionary = new ArrayList<>();
-                for(String word : filterDictionary) {
-                    if(word.contains(Character.toString(ch))) {
+                for (String word : filterDictionary) {
+                    if (word.contains(Character.toString(ch))) {
                         newFilterDictionary.add(word);
                     }
                 }
@@ -143,13 +142,13 @@ public class WordleGame {
             }
 
 
-            if(filterDictionary.isEmpty()) {
+            if (filterDictionary.isEmpty()) {
                 return "";
             } else {
                 int filterDictionaryRandomIndex = (int) (Math.random() * filterDictionary.size());
                 return filterDictionary.get(filterDictionaryRandomIndex);
             }
-        } catch(RuntimeException e) {
+        } catch (RuntimeException e) {
             printWriter.println(e.getMessage());
             return "";
         }
