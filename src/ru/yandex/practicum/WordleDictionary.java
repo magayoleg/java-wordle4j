@@ -11,7 +11,7 @@ import java.io.PrintWriter;
 public class WordleDictionary {
     private final List<String> words;
     private final PrintWriter printWriter;
-    final int MAX_LENGTH_WORD = 5;
+    private static final int MAX_LENGTH_WORD = 5;
 
     public WordleDictionary(List<String> dictionary, PrintWriter printWriter) {
         List<String> filterWords = filterOutLongerWords(dictionary);
@@ -51,7 +51,7 @@ public class WordleDictionary {
     public String normalizeWord(String word) throws InputException {
         try {
             boolean containsDigit = word.matches("^[а-яА-Я]+$");
-            if(containsDigit) {
+            if (containsDigit) {
                 throw new InputException("Слово содержит цифры или символы");
             }
 
