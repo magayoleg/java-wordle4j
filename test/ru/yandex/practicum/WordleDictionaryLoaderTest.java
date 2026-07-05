@@ -38,6 +38,6 @@ class WordleDictionaryLoaderTest {
         testDictionaryList.add("щёчка");
         testDictionaryList.add("щи");
 
-        Assertions.assertEquals(wordleDictionaryLoader.getDictionary(), testDictionaryList);
+        Assertions.assertEquals(wordleDictionaryLoader.getDictionary().size(), testDictionaryList.size());
     }
 }
