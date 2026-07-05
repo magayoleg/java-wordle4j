@@ -12,17 +12,17 @@ import java.util.List;
 
 class WordleDictionaryLoaderTest {
     PrintWriter printWriter;
-    WordleDictionaryLoader wordleDictionaryLoader;
 
     @BeforeEach
     void beforeEach() throws IOException {
         String projectDir = System.getProperty("user.dir");
         printWriter = new PrintWriter(projectDir + "/log.txt", StandardCharsets.UTF_8);
-        wordleDictionaryLoader = new WordleDictionaryLoader("\\test\\ru\\yandex\\practicum\\test_words_ru.txt", printWriter);
     }
 
     @Test
     void testGetWordsFromDictionary() {
+        WordleDictionaryLoader wordleDictionaryLoader = new WordleDictionaryLoader("\\test\\ru\\yandex\\practicum\\test_words_ru.txt", printWriter);
+
         List<String> testDictionaryList = new ArrayList<>();
 
         testDictionaryList.add("абаз");
@@ -38,6 +38,6 @@ class WordleDictionaryLoaderTest {
         testDictionaryList.add("щёчка");
         testDictionaryList.add("щи");
 
-        Assertions.assertEquals(wordleDictionaryLoader.getDictionary().size(), testDictionaryList.size());
+        Assertions.assertEquals(wordleDictionaryLoader.getDictionary(), testDictionaryList);
     }
 }
