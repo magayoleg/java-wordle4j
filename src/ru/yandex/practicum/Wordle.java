@@ -16,7 +16,7 @@ import java.util.List;
  */
 public class Wordle {
     public static void main(String[] args) {
-        try (PrintWriter printWriter = new PrintWriter("../../log.txt", StandardCharsets.UTF_8);) {
+        try (PrintWriter printWriter = new PrintWriter("../../log.txt", StandardCharsets.UTF_8)) {
             WordleDictionaryLoader wordleDictionaryLoader = new WordleDictionaryLoader("\\words_ru.txt", printWriter);
             List<String> loaderDictionary = wordleDictionaryLoader.getDictionary();
 
@@ -24,8 +24,8 @@ public class Wordle {
             int dictionaryRandomIndex = (int) (Math.random() * dictionary.getWords().size());
             String answer = dictionary.getWords().get(dictionaryRandomIndex);
 
-            WordleGame wordsGame = new WordleGame(answer, 6, dictionary, printWriter);
-            wordsGame.startGame();
+            WordleGame wordleGame = new WordleGame(answer, 6, dictionary, printWriter);
+            wordleGame.startGame();
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }

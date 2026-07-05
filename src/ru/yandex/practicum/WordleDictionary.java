@@ -11,9 +11,10 @@ import java.io.PrintWriter;
 public class WordleDictionary {
     private final List<String> words;
     private final PrintWriter printWriter;
+    final int MAX_LENGTH_WORD = 5;
 
     public WordleDictionary(List<String> dictionary, PrintWriter printWriter) {
-        List<String> filterWords = filterWords(dictionary);
+        List<String> filterWords = filterOutLongerWords(dictionary);
         words = normalizeWords(filterWords);
         this.printWriter = printWriter;
     }
@@ -22,9 +23,9 @@ public class WordleDictionary {
         return words;
     }
 
-    public List<String> filterWords(List<String> dictionary) {
+    public List<String> filterOutLongerWords(List<String> dictionary) {
         try {
-            return dictionary.stream().filter(word -> word.length() == 5).toList();
+            return dictionary.stream().filter(word -> word.length() == MAX_LENGTH_WORD).toList();
         } catch (RuntimeException e) {
             printWriter.println(e.getMessage());
             return dictionary;
@@ -33,21 +34,36 @@ public class WordleDictionary {
 
     public List<String> normalizeWords(List<String> words) {
         try {
-            return words.stream().map(this::normalizeWord).toList();
+            return words.stream().map(word -> {
+                try {
+                    return normalizeWord(word);
+                } catch (InputException e) {
+                    printWriter.println("Ошибка: " + e.getMessage());
+                    return word;
+                }
+            }).toList();
         } catch (RuntimeException e) {
             printWriter.println(e.getMessage());
             return words;
         }
     }
 
-    public String normalizeWord(String word) {
+    public String normalizeWord(String word) throws InputException {
         try {
+            boolean containsDigit = word.matches("^[а-яА-Я]+$");
+            if(containsDigit) {
+                throw new InputException("Слово содержит цифры или символы");
+            }
+
             String lowercaseWord = word.toLowerCase();
             if (lowercaseWord.contains("ё")) {
                 lowercaseWord = lowercaseWord.replace("ё", "е");
             }
 
             return lowercaseWord;
+        } catch (InputException e) {
+            printWriter.println("Ошибка валидации: " + e.getMessage());
+            return "";
         } catch (RuntimeException e) {
             printWriter.println(e.getMessage());
             return "";

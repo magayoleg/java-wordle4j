@@ -19,7 +19,7 @@ import java.util.regex.Pattern;
  */
 public class WordleGame {
 
-    private static final Scanner scanner = new Scanner(System.in);
+    public static final Scanner scanner = new Scanner(System.in);
 
     private final String correctAnswer;
     private final int steps;
@@ -67,10 +67,12 @@ public class WordleGame {
             }
         } catch (RuntimeException e) {
             printWriter.println(e.getMessage());
+        } catch (InputException e) {
+            printWriter.println(e);
         }
     }
 
-    private boolean isMatchCheck(String correctAnswer, String currentAnswer) {
+    public boolean isMatchCheck(String correctAnswer, String currentAnswer) {
         try {
             if (correctAnswer.equals(currentAnswer)) {
                 return true;
@@ -98,7 +100,7 @@ public class WordleGame {
         }
     }
 
-    private String hintWord() {
+    public String hintWord() {
         String[] regex = {"[а-я]", "[а-я]", "[а-я]", "[а-я]", "[а-я]"};
         String containsCharInCorrectAnswer = "";
 
