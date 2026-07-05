@@ -19,10 +19,9 @@ public class WordleDictionaryLoader {
     private final PrintWriter printWriter;
 
     public WordleDictionaryLoader(String pathFile, PrintWriter printWriter) {
+        this.printWriter = printWriter;
         this.pathFile = pathFile;
         getWordsFromDictionary();
-
-        this.printWriter = printWriter;
     }
 
     public List<String> getDictionary() {

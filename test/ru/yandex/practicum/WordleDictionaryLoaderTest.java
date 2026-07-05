@@ -16,7 +16,8 @@ class WordleDictionaryLoaderTest {
 
     @BeforeEach
     void beforeEach() throws IOException {
-        printWriter = new PrintWriter("../../log.txt", StandardCharsets.UTF_8);
+        String projectDir = System.getProperty("user.dir");
+        printWriter = new PrintWriter(projectDir + "/log.txt", StandardCharsets.UTF_8);
         wordleDictionaryLoader = new WordleDictionaryLoader("\\test\\ru\\yandex\\practicum\\test_words_ru.txt", printWriter);
     }
 

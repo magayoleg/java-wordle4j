@@ -14,9 +14,9 @@ public class WordleDictionary {
     private static final int MAX_LENGTH_WORD = 5;
 
     public WordleDictionary(List<String> dictionary, PrintWriter printWriter) {
+        this.printWriter = printWriter;
         List<String> filterWords = filterOutLongerWords(dictionary);
         words = normalizeWords(filterWords);
-        this.printWriter = printWriter;
     }
 
     public List<String> getWords() {
@@ -28,7 +28,7 @@ public class WordleDictionary {
             return dictionary.stream().filter(word -> word.length() == MAX_LENGTH_WORD).toList();
         } catch (RuntimeException e) {
             printWriter.println(e.getMessage());
-            return dictionary;
+            return words;
         }
     }
 
@@ -50,8 +50,8 @@ public class WordleDictionary {
 
     public String normalizeWord(String word) throws InputException {
         try {
-            boolean containsDigit = word.matches("^[а-яА-Я]+$");
-            if (containsDigit) {
+            boolean containsDigit = word.matches("^[a-zA-Zа-яА-ЯёЁ]+$");
+            if (!containsDigit) {
                 throw new InputException("Слово содержит цифры или символы");
             }
 

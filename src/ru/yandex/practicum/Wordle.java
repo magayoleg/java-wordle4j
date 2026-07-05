@@ -16,7 +16,8 @@ import java.util.List;
  */
 public class Wordle {
     public static void main(String[] args) {
-        try (PrintWriter printWriter = new PrintWriter("../../log.txt", StandardCharsets.UTF_8)) {
+        String projectDir = System.getProperty("user.dir");
+        try (PrintWriter printWriter = new PrintWriter(projectDir + "/log.txt", StandardCharsets.UTF_8)) {
             WordleDictionaryLoader wordleDictionaryLoader = new WordleDictionaryLoader("\\words_ru.txt", printWriter);
             List<String> loaderDictionary = wordleDictionaryLoader.getDictionary();
 

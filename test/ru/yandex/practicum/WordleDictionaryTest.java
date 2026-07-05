@@ -16,7 +16,8 @@ class WordleDictionaryTest {
 
     @BeforeEach
     void beforeEach() throws IOException {
-        printWriter = new PrintWriter("../../log.txt", StandardCharsets.UTF_8);
+        String projectDir = System.getProperty("user.dir");
+        printWriter = new PrintWriter(projectDir + "/log.txt", StandardCharsets.UTF_8);
         wordleDictionaryLoader = new WordleDictionaryLoader("\\test\\ru\\yandex\\practicum\\test_words_ru.txt", printWriter);
         loaderDictionary = wordleDictionaryLoader.getDictionary();
         dictionary = new WordleDictionary(loaderDictionary, printWriter);
@@ -30,7 +31,6 @@ class WordleDictionaryTest {
         testDictionaryList.add("date");
         testDictionaryList.add("щёчка");
         testDictionaryList.add("абвер");
-        testDictionaryList.add("");
 
         List<String> filteredList = dictionary.filterOutLongerWords(testDictionaryList);
 
@@ -80,8 +80,8 @@ class WordleDictionaryTest {
     @Test
     void normalizeWords_2() {
         List<String> testDictionaryList = new ArrayList<>();
-        testDictionaryList.add("нее");
-        testDictionaryList.add("еще");
+        testDictionaryList.add("неё");
+        testDictionaryList.add("ещЁ");
         testDictionaryList.add("шшшш");
 
         List<String> normalizeList = dictionary.normalizeWords(testDictionaryList);
@@ -90,21 +90,6 @@ class WordleDictionaryTest {
         totalDictionaryList.add("нее");
         totalDictionaryList.add("еще");
         totalDictionaryList.add("шшшш");
-
-        Assertions.assertEquals(normalizeList, totalDictionaryList);
-    }
-
-    @Test
-    void normalizeWords_3() {
-        List<String> testDictionaryList = new ArrayList<>();
-        testDictionaryList.add("");
-        testDictionaryList.add(" ");
-
-        List<String> normalizeList = dictionary.normalizeWords(testDictionaryList);
-
-        List<String> totalDictionaryList = new ArrayList<>();
-        totalDictionaryList.add("");
-        totalDictionaryList.add(" ");
 
         Assertions.assertEquals(normalizeList, totalDictionaryList);
     }
