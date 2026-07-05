@@ -21,7 +21,7 @@ class WordleDictionaryLoaderTest {
 
     @Test
     void testGetWordsFromDictionary() {
-        WordleDictionaryLoader wordleDictionaryLoader = new WordleDictionaryLoader("\\test\\ru\\yandex\\practicum\\test_words_ru.txt", printWriter);
+        WordleDictionaryLoader wordleDictionaryLoader = new WordleDictionaryLoader("\\java-wordle4j\\test\\ru\\yandex\\practicum\\test_words_ru.txt", printWriter);
 
         List<String> testDictionaryList = new ArrayList<>();
 
