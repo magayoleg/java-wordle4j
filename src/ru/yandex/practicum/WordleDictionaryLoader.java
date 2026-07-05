@@ -30,7 +30,7 @@ public class WordleDictionaryLoader {
 
     public void getWordsFromDictionary() {
         String projectDir = System.getProperty("user.dir");
-        System.out.println(projectDir);
+
         try (FileReader fileReader = new FileReader(projectDir + pathFile, StandardCharsets.UTF_8)) {
             BufferedReader br = new BufferedReader(fileReader);
             while (br.ready()) {
